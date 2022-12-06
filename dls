@@ -1,0 +1,33 @@
+from collections import defaultdict
+path=[]
+class Graph:
+	def __init__(self,vertices):
+		self.V = vertices
+		self.graph = defaultdict(list)
+	def addEdge(self,u,v):
+		self.graph[u].append(v)
+	def DLS(self,src,target,maxDepth):
+		print(src,end=' ')
+		if src == target : return True
+		if maxDepth <= 0 : return False
+		for i in self.graph[src]:
+			if(self.DLS(i,target,maxDepth-1)):
+					return True
+		return False
+	def IDDFS(self,src, target, maxDepth):
+			if (self.DLS(src, target, maxDepth-(1))):
+				return True
+			return False
+v,e=map(int,input("Enter no of vertices and edges").split())
+g = Graph (v)
+print("Enter")
+for i in range(e):
+  s,d=map(int,input().split())
+  g.addEdge(s,d)
+target=int(input("Enter target node:"))
+maxDepth=int(input("Enter limit:"))
+src=int(input("Enter source node:"))
+if g.IDDFS(src, target, maxDepth) == True:
+	print ("\nTarget is reachable from source " + "within max depth")
+else :
+	print ("\nTarget is NOT reachable from source " +	"within max depth")
