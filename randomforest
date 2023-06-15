@@ -1,0 +1,34 @@
+1import glob
+from google.colab import drive
+drive.mount('/content/drive')
+2import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+%matplotlib inline
+3from sklearn import datasets,metrics
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+4df = pd.read_csv('https://github.com/prasertcbs/tutorial/raw/master/msleep.csv')
+5print(df)
+6df.head()
+7df.dropna(inplace= True )
+8df=df.drop(['name','genus','vore','order','conservation','sleep_cycle'],axis=1)
+xVars=df.drop('sleep_total',axis=1)
+yVars=df[['sleep_total']]
+xTrain,xValid,yTrain,yValid=train_test_split(xVars,yVars,test_size=0.3,random_state=42)
+9regressor=RandomForestRegressor(n_estimators=1000, random_state=42)
+10regressor.fit(xTrain,yTrain)
+11y_pred=regressor.predict(xValid)
+12y_pred
+13y_pred=pd.DataFrame(y_pred,columns=['yPredict'])
+14y_pred
+15yValid
+16plt.figure(figsize=(10,5))
+plt.scatter(yValid,y_pred,color='red',label='Comparision of prediction between actual and prediction data')
+plt.legend()
+plt.grid()
+plt.title('Random Forest Regression')
+plt.xlabel('Prediction Data')
+plt.ylabel=('Actual Data')
+plt.show()
