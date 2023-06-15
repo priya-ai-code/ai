@@ -1,0 +1,19 @@
+1from sklearn.neighbors import KNeighborsClassifier f
+rom sklearn.model_selection import train_test_split 
+from sklearn.datasets import load_iris 
+import sklearn  
+2irisData = load_iris() 
+irisData
+3X = irisData.data 
+y = irisData.target
+4X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size = 0.2, random_state=42)
+5knn = KNeighborsClassifier(n_neighbors=7)
+knn.fit(X_train, y_train)
+# Predict on dataset which model has not seen before
+y_pred=knn.predict(X_test)
+y_pred
+6y_test
+7print(knn.score(X_test, y_test))
+8from sklearn.metrics import confusion_matrix
+confusion_matrix(y_test, y_pred)
